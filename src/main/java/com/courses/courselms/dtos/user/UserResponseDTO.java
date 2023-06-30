@@ -1,10 +1,23 @@
 package com.courses.courselms.dtos.user;
 
 import com.courses.courselms.models.User;
+import lombok.*;
 
-public record UserResponseDTO(Long id, String username, String email, String name) {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class UserResponseDTO {
+    private Long id;
+    private String name;
+    private String username;
+    private String email;
 
     public UserResponseDTO(User user) {
-        this(user.getId(), user.getUsername(), user.getEmail(), user.getName());
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.username = user.getUsername();
     }
 }

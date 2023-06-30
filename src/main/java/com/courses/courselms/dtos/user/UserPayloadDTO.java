@@ -1,3 +1,13 @@
 package com.courses.courselms.dtos.user;
 
-public record UserPayloadDTO(String name, String username, String password, String email) { }
+import lombok.*;
+
+@Getter @Setter
+@AllArgsConstructor @NoArgsConstructor
+@ToString
+public class UserPayloadDTO {
+    private String name;
+    private String username;
+    private String password;
+    private String email;
+}
