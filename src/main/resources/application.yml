@@ -1,0 +1,14 @@
+server:
+  port: 3000
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/courselms
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+  security:
+    user:
+      name: admin
+      password: admin
