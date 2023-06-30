@@ -33,7 +33,14 @@ public class UserServiceImp implements UserDetailsService {
     }
 
     public List<UserDto> findAll() {
-        return this.userRepository.findAll().stream().map(UserDto::new).toList();
+        return this.userRepository.findAll().stream().map(user ->
+                        new UserDto.UserDtoBuilder()
+                                .setId(user.getId())
+                                .setName(user.getName())
+                                .setUsername(user.getUsername())
+                                .setEnabled(user.getEnabled())
+                                .build()
+                ).toList();
     }
 
     public UserDto create(UserDto userDto) {

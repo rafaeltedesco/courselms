@@ -34,6 +34,7 @@ public class UserDto {
         this.enabled = dtoBuilder.enabled;
     }
     public static class UserDtoBuilder {
+
         private Long id;
         private String name;
         private String username;
