@@ -1,6 +1,7 @@
 package com.courses.courselms.services;
 
-import com.courses.courselms.dtos.UserDto;
+import com.courses.courselms.dtos.user.UserPayloadDTO;
+import com.courses.courselms.dtos.user.UserResponseDTO;
 import com.courses.courselms.models.User;
 import com.courses.courselms.repositories.UserRepository;
 import com.courses.courselms.services.ports.IHashEncoder;
@@ -33,27 +34,15 @@ public class UserServiceImp implements UserDetailsService {
         return user;
     }
 
-    public List<UserDto> findAll() {
-        return this.userRepository.findAll().stream().map(user ->
-                        new UserDto.UserDtoBuilder()
-                                .setId(user.getId())
-                                .setName(user.getName())
-                                .setUsername(user.getUsername())
-                                .setEnabled(user.getEnabled())
-                                .build()
-                ).toList();
+    public List<UserResponseDTO> findAll() {
+        return this.userRepository.findAll().stream().map(UserResponseDTO::new).toList();
     }
 
-    public UserDto create(UserDto userDto) {
+    public UserResponseDTO create(UserPayloadDTO userDto) {
         User newUser = modelMapper.map(userDto, User.class);
         String hashedPassword = this.hashEncoder.encode(newUser.getPassword());
         newUser.setPassword(hashedPassword);
         User user = this.userRepository.save(newUser);
-        return new UserDto.UserDtoBuilder()
-                .setId(user.getId())
-                .setName(user.getName())
-                .setUsername(user.getUsername())
-                .setEmail(user.getEmail())
-                .build();
+        return new UserResponseDTO(user);
     }
 }

@@ -1,6 +1,7 @@
 package com.courses.courselms.controllers;
 
-import com.courses.courselms.dtos.UserDto;
+import com.courses.courselms.dtos.user.UserPayloadDTO;
+import com.courses.courselms.dtos.user.UserResponseDTO;
 import com.courses.courselms.services.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +16,12 @@ public class UserController {
     private UserServiceImp userServiceImp;
 
     @PostMapping
-    public UserDto create(@RequestBody UserDto userDto) {
+    public UserResponseDTO create(@RequestBody UserPayloadDTO userDto) {
         return this.userServiceImp.create(userDto);
     }
 
     @GetMapping
-    public List<UserDto> findAll() {
+    public List<UserResponseDTO> findAll() {
         return this.userServiceImp.findAll();
     }
 
