@@ -3,6 +3,7 @@ package com.courses.courselms.services;
 import com.courses.courselms.dtos.UserDto;
 import com.courses.courselms.models.User;
 import com.courses.courselms.repositories.UserRepository;
+import com.courses.courselms.services.ports.IHashEncoder;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +23,7 @@ public class UserServiceImp implements UserDetailsService {
     private ModelMapper modelMapper;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private IHashEncoder hashEncoder;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails user = this.userRepository.findByUsername(username);
@@ -45,7 +46,7 @@ public class UserServiceImp implements UserDetailsService {
 
     public UserDto create(UserDto userDto) {
         User newUser = modelMapper.map(userDto, User.class);
-        String hashedPassword = this.bCryptPasswordEncoder.encode(newUser.getPassword());
+        String hashedPassword = this.hashEncoder.encode(newUser.getPassword());
         newUser.setPassword(hashedPassword);
         User user = this.userRepository.save(newUser);
         return new UserDto.UserDtoBuilder()

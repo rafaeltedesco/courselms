@@ -1,5 +1,7 @@
 package com.courses.courselms.config;
 
+import com.courses.courselms.services.adapters.BcryptAdapter;
+import com.courses.courselms.services.ports.IHashEncoder;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +16,6 @@ public class GlobalConfig {
     }
 
     @Bean
-    BCryptPasswordEncoder getBcryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    IHashEncoder getHashEncoder() { return new BcryptAdapter(); }
+
 }
