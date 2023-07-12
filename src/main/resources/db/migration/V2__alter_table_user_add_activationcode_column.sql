@@ -1,0 +1,1 @@
+ALTER TABLE user ADD activation_code VARCHAR(255);
