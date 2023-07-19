@@ -18,20 +18,35 @@ import java.util.List;
 @Service
 public class UserServiceImp implements UserDetailsService {
 
+
     private static String subject = "Seu código de ativação!";
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private HtmlGenerator htmlGenerator;
 
-    @Autowired
+
     private ModelMapper modelMapper;
 
-    @Autowired
+
     private MailService mailService;
-    @Autowired
+
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserServiceImp(
+            UserRepository repository,
+            PasswordEncoder encoder,
+            MailService mailService,
+            ModelMapper modelMapper,
+            HtmlGenerator htmlGenerator
+    ) {
+        this.userRepository = repository;
+        this.passwordEncoder = encoder;
+        this.mailService = mailService;
+        this.modelMapper = modelMapper;
+        this.htmlGenerator = htmlGenerator;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails user = this.userRepository.findByUsername(username);
